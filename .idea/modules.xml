@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/guava_study/guava_study.iml" filepath="$PROJECT_DIR$/guava_study/guava_study.iml" group="other" />
+      <module fileurl="file://$PROJECT_DIR$/jdk_study/jdk_study.iml" filepath="$PROJECT_DIR$/jdk_study/jdk_study.iml" group="other" />
+      <module fileurl="file://$PROJECT_DIR$/jvm_study/jvm_study.iml" filepath="$PROJECT_DIR$/jvm_study/jvm_study.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/my_study.iml" filepath="$PROJECT_DIR$/.idea/my_study.iml" group="other" />
+      <module fileurl="file://$PROJECT_DIR$/netty_study/netty_study.iml" filepath="$PROJECT_DIR$/netty_study/netty_study.iml" group="other" />
+      <module fileurl="file://$PROJECT_DIR$/practice/practice.iml" filepath="$PROJECT_DIR$/practice/practice.iml" group="other" />
+    </modules>
+  </component>
+</project>
