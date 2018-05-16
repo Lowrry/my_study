@@ -14,14 +14,13 @@
         <module name="simple" />
       </profile>
     </annotationProcessing>
-    <bytecodeTargetLevel target="1.7">
-      <module name="guava_study" target="1.7" />
-      <module name="jdk_study" target="1.7" />
-      <module name="jvm_study" target="1.7" />
-      <module name="my_study" target="1.7" />
+    <bytecodeTargetLevel target="1.8">
+      <module name="guava_study" target="1.8" />
+      <module name="jdk_study" target="1.8" />
+      <module name="jvm_study" target="1.8" />
+      <module name="my_study" target="1.8" />
       <module name="netty_study" target="1.5" />
-      <module name="practice" target="1.7" />
-      <module name="simple" target="1.7" />
+      <module name="practice" target="1.8" />
     </bytecodeTargetLevel>
   </component>
 </project>

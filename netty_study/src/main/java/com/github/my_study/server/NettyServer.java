@@ -1,4 +1,4 @@
-package server;
+package com.github.my_study.server;
 
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.buffer.ByteBuf;
@@ -44,7 +44,7 @@ public class NettyServer {
 
         @Override
         protected void initChannel(Channel ch) throws Exception {
-            ch.pipeline().addLast(new ChannelInboundHandlerAdapter() {
+            ch.pipeline().addLast(new ChannelInboundHandlerAdapter() {  // 这里是new出一个ChannelHandler, 装配到pipeline中.
                 @Override
                 public void channelRegistered(ChannelHandlerContext ctx) throws Exception {
                     super.channelRegistered(ctx);

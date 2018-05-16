@@ -20,6 +20,9 @@ import java.util.concurrent.locks.ReentrantReadWriteLock;
 // 我这里也要改成基础数据类型int型. 日期其实就是一个int.
 // todo 比较下数组和对象,哪个快,gc情况怎么样?
 // todo 抽象出去重的条件, 可以自定义对象?
+
+// todo, 中间件先做一次去重, 数据库再做一次去重
+// todo, 测试下线程关闭的runtime.shutdownhook作用
 public class Message {
 
     private final ReentrantReadWriteLock readWriteLock = new ReentrantReadWriteLock();

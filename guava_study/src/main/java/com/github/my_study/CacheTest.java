@@ -4,6 +4,7 @@ import com.google.common.cache.*;
 import org.junit.Test;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -16,8 +17,9 @@ public class CacheTest {
     @Test
     public void test1() throws IOException, InterruptedException {
         LoadingCache<String, String> cache = CacheBuilder.newBuilder()
-                .maximumSize(10)
-                .expireAfterAccess(20, TimeUnit.SECONDS)
+//                .maximumSize(10)
+                .weakKeys()
+                .expireAfterAccess(2, TimeUnit.SECONDS)
                 .concurrencyLevel(10)   // 这里能设置并发的访问级别
                 // 但是缓存不存在,所有的请求都穿透了缓存,访问数据库,这种情况也是不允许的
                 // 提供不同的接口
@@ -60,14 +62,71 @@ public class CacheTest {
 
         System.out.println("==============");
 
-        for (int i = 0; i < 100; i++) {
-            // cache的超时清理是依赖读取或者写入操作,读取或者写入时会清理超时失效的缓存.
-            System.out.println(cache.getUnchecked("test"));
-            Thread.sleep(1000);
+        Thread.sleep(3000);
+
+        for (int i = 0; i < 20; i++) {
+            String result = cache.getUnchecked("user-" + i);
+            System.out.println("query result = " + result);
         }
+
+//        for (int i = 0; i < 100; i++) {
+//            // cache的超时清理是依赖读取或者写入操作,读取或者写入时会清理超时失效的缓存.
+//            System.out.println(cache.getUnchecked("test"));
+//            Thread.sleep(1000);
+//        }
 
         System.in.read();
 
+    }
+
+
+    @Test
+    public void testClassReference(){
+        LoadingCache<Class,String> cache = CacheBuilder.newBuilder().weakKeys().build(
+                new CacheLoader<Class, String>() {
+                    @Override
+                    public String load(Class key) throws Exception {
+                        System.out.println("i am loading ...");
+                        return key.getName();
+                    }
+                }
+        );
+
+        System.out.println(cache.getUnchecked(ArrayList.class));
+        System.out.println(cache.getUnchecked(ArrayList.class));
+
+        System.gc();
+
+        System.out.println(cache.getUnchecked(ArrayList.class));
+    }
+
+    /**
+     * 模拟这样一种场景
+     * guava-cache缓存过大, 导致老年代太大, 频繁触发Full-GC.
+     *
+     * 对策:
+     * 1. 设置弱引用的key
+     * 2. 设置缓存上限个数
+     * 3.
+     */
+    // -server -Xms1024m -Xmx1024m -XX:+PrintGCDetails
+    @Test
+    public void localCache() throws InterruptedException {
+        LoadingCache<String, String[]> cache = CacheBuilder.newBuilder().build(
+                new CacheLoader<String, String[]>() {
+                    @Override
+                    public String[] load(String key) throws Exception {
+                        String[] ss = new String[1000];
+                        ss[0] = "test";
+                        return ss;
+                    }
+                }
+        );
+
+        for(int i=0;i<100000;i++){
+//            Thread.sleep(10);
+            String[] result = cache.getUnchecked(i + "");
+        }
     }
 
 }

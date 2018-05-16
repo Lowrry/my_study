@@ -1,4 +1,4 @@
-package client;
+package com.github.my_study.client;
 
 import io.netty.bootstrap.Bootstrap;
 import io.netty.buffer.ByteBuf;
