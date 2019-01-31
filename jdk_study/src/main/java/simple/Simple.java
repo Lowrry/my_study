@@ -11,6 +11,10 @@ import java.util.Objects;
  */
 public class Simple {
 
+    public static void main(String[] args) {
+
+    }
+
     String[] ss;
 
     @Test
